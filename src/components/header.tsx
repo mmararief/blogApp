@@ -137,11 +137,7 @@ const Header = async () => {
               />
             </svg>
           </li>
-          <li>
-            <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
-              Contact
-            </a>
-          </li> */}
+*/}
         </ul>
 
         {user?.email ? (
