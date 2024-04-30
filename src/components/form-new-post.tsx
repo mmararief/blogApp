@@ -1,7 +1,13 @@
 "use client";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { ChangeEvent, FormEvent, useReducer, useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { FormData } from "@/types/blogs";
+import { useSession } from "next-auth/react";
+import error from "next/error";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+
 const inputClass =
   "w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300";
 const FormNewPost = () => {
@@ -9,6 +15,10 @@ const FormNewPost = () => {
     title: "",
     content: "",
   });
+
+  const { data } = useSession();
+  const router = useRouter();
+  console.log(data?.user);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -21,9 +31,17 @@ const FormNewPost = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axios.post("api/posts", formData);
+
+      if (response.status === 200) {
+        router.push(`/blogs/${response.data.newPost.id}`);
+      }
+    } catch {
+      console.error(error);
+    }
   };
   return (
     <form className="max-w-4md mx-auto p-4" onSubmit={handleSubmit}>
@@ -47,12 +65,13 @@ const FormNewPost = () => {
           onChange={handleChange}
         />
       </div>
-      <button
+      <Button
+        disabled={!data?.user?.email}
         type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"
+        className=" font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"
       >
         Submit
-      </button>
+      </Button>
     </form>
   );
 };

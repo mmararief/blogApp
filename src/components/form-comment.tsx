@@ -1,15 +1,37 @@
 "use client";
-import React, { ChangeEvent, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import React, { ChangeEvent, FC, useState } from "react";
+import { Button } from "./ui/button";
+interface FormCommentProps {
+  postId: string;
+}
 
-const FormComment = () => {
+const FormComment: FC<FormCommentProps> = ({ postId }) => {
   const [comment, setComment] = useState<string>("");
+  const router = useRouter();
+  const { data: session, status } = useSession();
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
 
-  const handleSubmitComment = () => {
-    console.log(comment);
+  const handleSubmitComment = async () => {
+    if (comment.trim() !== "") {
+      try {
+        const newComment = await axios.post("/api/comments", {
+          postId,
+          text: comment,
+        });
+        if (newComment.status === 200) {
+          setComment("");
+          router.refresh();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
   return (
     <div>
@@ -27,12 +49,13 @@ const FormComment = () => {
           className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
           name="comment"
         />
-        <button
+        <Button
           onClick={handleSubmitComment}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mt-2  disabled:bg-gray-400"
+          className=" py-2 px-4 rounded-md mt-2  disabled:bg-gray-400"
+          disabled={!session} // Disable if not logged in
         >
-          Submit Comment
-        </button>
+          {session ? "Submit Comment" : "Login to Comment"}
+        </Button>
       </div>
     </div>
   );

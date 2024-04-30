@@ -1,17 +1,36 @@
-import React from "react";
+import prisma from "@/lib/db";
+import { format } from "date-fns";
+import React, { FC } from "react";
+interface CommentsProps {
+  postId: string;
+}
+const Comments: FC<CommentsProps> = async ({ postId }) => {
+  const comments = await prisma.comment.findMany({
+    where: {
+      postId: postId,
+    },
+    include: {
+      author: true,
+    },
+  });
 
-const Comments = () => {
   return (
     <div className="mt-8">
-      <h2 className="text-2xl font-bold">Comments</h2>
+      <h2 className="text-2xl font-bold pb-2">Comments</h2>
       <ul>
-        <li className="mb-4 bg-slate-300 p-2">
-          <div className="flex items-center mb-2">
-            <div className="text-blue-500 font-bold mr-2">john doe</div>
-            <div className="text-grey-500">10-November-2024</div>
-          </div>
-          <p>Mantap cok</p>
-        </li>
+        {comments.map((comment) => (
+          <li key={comment.id} className="mb-4 bg-gray-100 p-2">
+            <div className="flex justify-between items-center mb-2">
+              <div className="text-slate-600 font-bold mr-2">
+                {comment.author?.name || comment.author?.email}
+              </div>
+              <div className="text-grey-500 text-sm">
+                {format(comment.createdAt, "MMMM d, yyyy")}
+              </div>
+            </div>
+            <p>{comment.text}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );
