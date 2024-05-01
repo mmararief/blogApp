@@ -56,14 +56,7 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
         {user?.email == post?.author?.email ? (
           <ButtonDelete postId={params.id} />
         ) : null}
-        <Comments postId={params.id} />
-        {user?.email ? (
-          <FormComment postId={params.id} />
-        ) : (
-          <Link href="/api/auth/signin">
-            <Button>Login For Comment</Button>
-          </Link>
-        )}
+        <Comments postId={params.id} userId={""} />
       </div>
     </div>
   );

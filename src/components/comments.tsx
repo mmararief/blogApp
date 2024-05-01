@@ -2,8 +2,13 @@ import prisma from "@/lib/db";
 import { format } from "date-fns";
 import React, { FC } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import FormComment from "./form-comment";
+import { getCurrentUser } from "@/lib/session";
+import Link from "next/link";
+import { Button } from "./ui/button";
 interface CommentsProps {
   postId: string;
+  userId: string;
 }
 const Comments: FC<CommentsProps> = async ({ postId }) => {
   const comments = await prisma.comment.findMany({
@@ -14,10 +19,18 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
       author: true,
     },
   });
+  const user = await getCurrentUser();
 
   return (
     <div className="mt-8">
       <h2 className="text-2xl font-bold pb-4">{comments.length} Comments </h2>
+      {user?.email ? (
+        <FormComment postId={postId} userId={user.image || ""} />
+      ) : (
+        <Link href="/api/auth/signin">
+          <Button>Login For Comment</Button>
+        </Link>
+      )}
       <ul>
         {comments.map((comment) => (
           <li key={comment.id} className="mb-4 p-2">

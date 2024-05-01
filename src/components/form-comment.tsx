@@ -4,11 +4,14 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React, { ChangeEvent, FC, useState } from "react";
 import { Button } from "./ui/button";
+import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 interface FormCommentProps {
   postId: string;
+  userId: string;
 }
 
-const FormComment: FC<FormCommentProps> = ({ postId }) => {
+const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
   const [comment, setComment] = useState<string>("");
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -35,26 +38,29 @@ const FormComment: FC<FormCommentProps> = ({ postId }) => {
   };
   return (
     <div>
-      <div className="mt-4">
-        <label
-          htmlFor="comment"
-          className="block text-grey-700 text-sm font-bold mb-2"
-        >
-          Add Comment
-        </label>
+      <div className="flex items-center border-b border-gray-300 p-2">
+        <Avatar className="mr-2">
+          {userId && <AvatarImage src={userId} />}
+
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
         <input
           value={comment}
           onChange={handleCommentChange}
           type="text"
-          className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
+          placeholder="Tambahkan komentar..."
+          className="w-full border-none focus:outline-none"
           name="comment"
         />
+      </div>
+      <div className="flex flex-row-reverse items-center py-2 px-4">
         <Button
+          variant="outline"
           onClick={handleSubmitComment}
-          className=" py-2 px-4 rounded-md mt-2  disabled:bg-gray-400"
+          className=" disabled:bg-gray-400"
           disabled={!session} // Disable if not logged in
         >
-          {session ? "Submit Comment" : "Login to Comment"}
+          {session ? "Comment" : "Login to Comment"}
         </Button>
       </div>
     </div>
