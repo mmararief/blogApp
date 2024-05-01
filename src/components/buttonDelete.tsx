@@ -16,6 +16,7 @@ const ButtonDelete: React.FC<BlogDetailProps> = ({ postId }) => {
         method: "DELETE",
       });
       console.log(postId);
+      router.refresh();
       router.push("/");
     } catch (error) {
       console.error("Error deleting post:", error);

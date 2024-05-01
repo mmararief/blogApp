@@ -3,7 +3,7 @@ import prisma from "@/lib/db";
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/session";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const Blogs = async () => {
   const user = await getCurrentUser();
   const posts = await prisma.post.findMany({
@@ -40,8 +40,18 @@ const Blogs = async () => {
             href={`/blogs/${post.id}`}
             className="bg-white p-4 rounded-md shadow-md "
           >
-            <h2 className="text-xl font-bold pb-8">{post.title}</h2>
-            <p className="text-sm ">Written by: {post.author?.name}</p>
+            <div className="flex items-center mb-6">
+              <Avatar className="mr-2">
+                {post?.author?.image && (
+                  <AvatarImage src={post?.author?.image} />
+                )}
+
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <p className="text-gray-600 text-xs">{post?.author?.name}</p>
+            </div>
+            <h2 className="text-xl font-bold">{post.title}</h2>
+
             <p className="text-2sm">{post.content.substring(0, 50)}...</p>
           </Link>
         ))}

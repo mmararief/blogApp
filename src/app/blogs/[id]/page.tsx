@@ -4,7 +4,7 @@ import FormComment from "@/components/form-comment";
 import prisma from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import Image from "next/image";
 import React, { FC } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -37,6 +37,16 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
         <p className="text-gray-600">{post?.author?.name}</p>
       </div>
       <h1 className="text-3xl font-bold">{post?.title}</h1>
+      <div className="py-8 rounded-md">
+        {post?.imageUrl && (
+          <Image
+            src={post?.imageUrl}
+            alt="my image"
+            width="1000"
+            height={300}
+          />
+        )}
+      </div>
 
       <div className="mt-4">
         <p className="break-normal">{post?.content}</p>
