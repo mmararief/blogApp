@@ -28,7 +28,8 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
 
   return (
     <div className="max-w-4xl mx-auto py-8">
-      <div className="flex items-center mb-6">
+      <h1 className="text-3xl font-bold">{post?.title}</h1>
+      <div className="flex items-center ">
         <Avatar className="mr-2">
           {post?.author?.image && <AvatarImage src={post?.author?.image} />}
 
@@ -36,10 +37,10 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
         </Avatar>
         <p className="text-gray-600">{post?.author?.name}</p>
       </div>
-      <h1 className="text-3xl font-bold">{post?.title}</h1>
-      <div className="py-8 rounded-md">
+      <div className="py-4">
         {post?.imageUrl && (
           <Image
+            className="rounded-xl"
             src={post?.imageUrl}
             alt="my image"
             width="1000"

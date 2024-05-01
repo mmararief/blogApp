@@ -21,6 +21,8 @@ const FormNewPost = () => {
     imageUrl: "", // Initialize imageUrl as empty string
   });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const { data } = useSession();
   const router = useRouter();
   console.log(data?.user);
@@ -37,6 +39,7 @@ const FormNewPost = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const response = await axios.post("api/posts", formData);
@@ -101,11 +104,11 @@ const FormNewPost = () => {
       </div>
       <div className="mb-4"></div>
       <Button
-        disabled={!data?.user?.email}
+        disabled={!data?.user?.email || isLoading}
         type="submit"
         className=" font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full disabled:bg-gray-400"
       >
-        Submit
+        {isLoading ? "Posting..." : "Submit"}
       </Button>
     </form>
   );
