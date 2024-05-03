@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -18,6 +18,12 @@ const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSubmitComment();
+    }
   };
 
   const handleSubmitComment = async () => {
@@ -36,6 +42,7 @@ const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
       }
     }
   };
+
   return (
     <div>
       <div className="flex items-center border-b border-gray-300 p-2">
@@ -47,6 +54,7 @@ const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
         <input
           value={comment}
           onChange={handleCommentChange}
+          onKeyPress={handleKeyPress}
           type="text"
           placeholder="Tambahkan komentar..."
           className="w-full border-none focus:outline-none"

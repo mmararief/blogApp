@@ -15,8 +15,6 @@ const Blogs = async () => {
     },
   });
 
-  console.log(posts);
-
   return (
     <div>
       <div className="flex justify-between items-center">
