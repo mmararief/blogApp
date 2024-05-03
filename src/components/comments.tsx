@@ -18,6 +18,9 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
     include: {
       author: true,
     },
+    orderBy: {
+      createdAt: "desc", // Assuming there's a createdAt field in your comment schema
+    },
   });
   const user = await getCurrentUser();
 

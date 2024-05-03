@@ -1,7 +1,5 @@
 import FormNewPost from "@/components/form-new-post";
-import { posts } from "@/data/posts";
-import prisma from "@/lib/db";
-import Link from "next/link";
+
 import React from "react";
 
 const BlogsPage = async () => {

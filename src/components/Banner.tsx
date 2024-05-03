@@ -11,9 +11,7 @@ const Banner = () => {
     >
       <div className="absolute inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-white font-bold text-5xl">
-            JAKASEMBUNG BAWA GOLOK
-          </h1>
+          <h1 className="text-white font-bold text-6xl">BLOGERS</h1>
         </div>
       </div>
     </div>
