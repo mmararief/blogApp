@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 interface BlogDetailProps {
@@ -36,13 +37,11 @@ const ButtonDelete: React.FC<BlogDetailProps> = ({ postId }) => {
 
   return (
     <div>
-      {/* <Button onClick={handleDelete} variant="destructive">
-        Delete Post
-      </Button> */}
-
       <AlertDialog>
         <AlertDialogTrigger asChild>
-          <Button variant="destructive">Delete Post</Button>
+          <Button variant="destructive">
+            <FaRegTrashAlt className="mr-2" /> Delete Post
+          </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>

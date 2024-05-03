@@ -1,7 +1,8 @@
 import React from "react";
 import prisma from "@/lib/db";
 import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { CiSquarePlus } from "react-icons/ci";
+import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/session";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 const Blogs = async () => {
@@ -17,13 +18,14 @@ const Blogs = async () => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold mb-4">Blogs</h1>
+      <div className="flex justify-between items-center mb-4">
+        <h1 className="text-3xl font-bold ">Blogs</h1>
         {user?.email ? (
           <Link
             href="/blogs"
             className={buttonVariants({ variant: "outline" })}
           >
+            <CiSquarePlus className="mr-2" />
             New Post
           </Link>
         ) : (
@@ -38,19 +40,21 @@ const Blogs = async () => {
             href={`/blogs/${post.id}`}
             className="bg-white p-4 rounded-md shadow-md "
           >
-            <div className="flex items-center mb-6">
-              <Avatar className="mr-2">
+            <div className="flex items-center border-b border-gray-300 mb-2">
+              <Avatar className="mr-2 mb-2">
                 {post?.author?.image && (
                   <AvatarImage src={post?.author?.image} />
                 )}
 
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <p className="text-gray-600 text-xs">{post?.author?.name}</p>
+              <p className="text-gray-600 text-sm">{post?.author?.name}</p>
             </div>
-            <h2 className="text-xl font-bold">{post.title}</h2>
+            <div className="ml-12">
+              <h2 className="text-xl font-bold">{post.title.toUpperCase()}</h2>
 
-            <p className="text-2sm">{post.content.substring(0, 50)}...</p>
+              <p className="text-2sm">{post.content.substring(0, 100)}...</p>
+            </div>
           </Link>
         ))}
       </div>
