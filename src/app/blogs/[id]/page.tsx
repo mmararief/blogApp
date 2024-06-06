@@ -45,15 +45,25 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
           </div>
         </div>
 
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {post?.imageUrl && (
             <Image
               className="rounded-xl"
               src={post?.imageUrl}
               alt="my image"
-              width="1000"
+              width={1000}
               height={300}
-              style={{ maxHeight: "400px", objectFit: "cover" }}
+              style={{
+                maxHeight: "400px",
+                width: "1000px",
+                objectFit: "contain",
+              }}
             />
           )}
         </div>
