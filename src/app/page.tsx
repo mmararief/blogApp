@@ -4,10 +4,6 @@ import Blogs from "@/components/blogs";
 export default async function Home() {
   return (
     <main className="max-w-6xl mx-auto my-5">
-      <div className="pb-8">
-        <Banner />
-      </div>
-
       <Blogs />
     </main>
   );

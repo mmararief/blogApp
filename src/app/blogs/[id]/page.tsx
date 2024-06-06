@@ -53,6 +53,7 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
               alt="my image"
               width="1000"
               height={300}
+              style={{ maxHeight: "400px", objectFit: "cover" }}
             />
           )}
         </div>

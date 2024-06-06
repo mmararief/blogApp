@@ -5,6 +5,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/session";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Banner from "./Banner";
 const Blogs = async () => {
   const user = await getCurrentUser();
   const posts = await prisma.post.findMany({
@@ -18,6 +19,9 @@ const Blogs = async () => {
 
   return (
     <div>
+      <div className="pb-8">
+        <Banner posts={posts} />
+      </div>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-3xl font-bold ">Blogs</h1>
         {user?.email ? (
