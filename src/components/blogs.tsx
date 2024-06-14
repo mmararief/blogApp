@@ -37,14 +37,14 @@ const Blogs = async () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 ">
         {posts.map((post) => (
           <Link
             key={post.id}
             href={`/blogs/${post.id}`}
-            className="bg-white p-4 rounded-md shadow-md "
+            className="bg-white p-4 rounded-md shadow-md hover:scale-[1.1] "
           >
-            <div className="flex items-center border-b border-gray-300 mb-2">
+            <div className="flex items-center border-b border-gray-300 mb-2 ">
               <Avatar className="mr-2 mb-2">
                 {post?.author?.image && (
                   <AvatarImage src={post?.author?.image} />

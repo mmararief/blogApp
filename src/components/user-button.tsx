@@ -22,7 +22,9 @@ const UserButton: React.FC<UserButtonProps> = ({ userId }) => {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <a href="/profile">
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+          </a>
 
           <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
