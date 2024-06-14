@@ -2,9 +2,11 @@
 import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
 import { useState } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const ImageUpload = () => {
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const { data } = useSession();
+  const [imageUrl, setImageUrl] = useState<string>(data?.user?.image || "");
   return (
     <div>
       <UploadDropzone

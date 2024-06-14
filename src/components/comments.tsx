@@ -41,7 +41,10 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
               <div className=" flex items-center mr-2">
                 <Avatar className="mr-2">
                   {comment?.author?.image && (
-                    <AvatarImage src={comment?.author?.image} />
+                    <AvatarImage
+                      className="object-cover"
+                      src={comment?.author?.image}
+                    />
                   )}
 
                   <AvatarFallback>CN</AvatarFallback>

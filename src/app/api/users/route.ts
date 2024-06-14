@@ -9,14 +9,15 @@ export async function PUT(req: Request){
             return NextResponse.json({ message: 'Not Authenticated!'}, {status: 401})
         }
 
-        const {name} = await req.json();
+        const {name, image} = await req.json();
         
         const putUser = await prisma.user.update({
             where : {
                 email : user.email
             },
             data : {
-                name : name
+                name : name,
+                image: image
             }
         })
         console.log(putUser)

@@ -37,7 +37,12 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
           </h1>
           <div className="flex items-center ">
             <Avatar className="mr-2">
-              {post?.author?.image && <AvatarImage src={post?.author?.image} />}
+              {post?.author?.image && (
+                <AvatarImage
+                  className="object-cover"
+                  src={post?.author?.image}
+                />
+              )}
 
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>

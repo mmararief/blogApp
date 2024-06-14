@@ -4,6 +4,8 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { UploadButton, UploadDropzone } from "@/utils/uploadthing";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -20,26 +22,29 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@/components/ui/use-toast";
-import router from "next/router";
+import ImageUpload from "./iamge-upload";
 const formSchema = z.object({
   name: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
   email: z.string().optional(),
+  image: z.string().optional(),
 });
 
 export function ProfileForm() {
   const router = useRouter();
   const { toast } = useToast();
   const { data } = useSession();
-  const [email, setEmail] = useState(data?.user?.email);
-  const [name, setName] = useState(data?.user?.name);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: name || null || undefined,
-      email: email || null || undefined,
+      name: data?.user?.name || "",
+      email: email || "",
+      image: image || "",
     },
     mode: "onChange",
   });
@@ -48,6 +53,7 @@ export function ProfileForm() {
     try {
       const response = await axios.put(`api/users`, {
         name: values.name,
+        image: image,
       });
       toast({
         description: "Your name has been set.",
@@ -74,6 +80,39 @@ export function ProfileForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          control={form.control}
+          name="image"
+          render={() => (
+            <FormItem>
+              <FormLabel>Image</FormLabel>
+              <div className="flex">
+                <Avatar className="w-[100px] h-[100px] ">
+                  <AvatarImage
+                    className="object-cover"
+                    src={image || data.user?.image || ""}
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <UploadButton
+                  endpoint="imageUploader"
+                  className="ml-6 ut-button:bg-gray-950 ut-button:ut-readying:bg-red-500/50"
+                  onClientUploadComplete={(res) => {
+                    console.log("Files: ", res);
+
+                    setImage(res[0].url);
+                  }}
+                  onUploadError={(error) => {
+                    alert(`ERROR! ${error.message}`);
+                  }}
+                />
+              </div>
+
+              <FormDescription>Manage your image profile.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="name"

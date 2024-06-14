@@ -47,7 +47,10 @@ const Blogs = async () => {
             <div className="flex items-center border-b border-gray-300 mb-2 ">
               <Avatar className="mr-2 mb-2">
                 {post?.author?.image && (
-                  <AvatarImage src={post?.author?.image} />
+                  <AvatarImage
+                    className="object-cover"
+                    src={post?.author?.image}
+                  />
                 )}
 
                 <AvatarFallback>CN</AvatarFallback>

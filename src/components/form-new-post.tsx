@@ -18,7 +18,7 @@ const FormNewPost = () => {
   const [formData, setFormData] = useState<FormData>({
     title: "",
     content: "",
-    imageUrl: "", // Initialize imageUrl as empty string
+    imageUrl: "",
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -72,6 +72,7 @@ const FormNewPost = () => {
           name="title"
           value={formData.title}
           onChange={handleChange}
+          required
         />
       </div>
       <div className="mb-4">
@@ -82,6 +83,7 @@ const FormNewPost = () => {
           placeholder="Enter the content"
           value={formData.content}
           onChange={handleChange}
+          required
         />
       </div>
       <div>
