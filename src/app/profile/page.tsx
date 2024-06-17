@@ -3,7 +3,7 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <div>
+    <div className="max-w-full md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto my-5 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-screen-xl border-b p-2 border-gray-300 ">
         <h1 className="text-2xl font-bold">Settings</h1>
         <p className="text-muted-foreground">
