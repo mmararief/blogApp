@@ -10,14 +10,7 @@ const Profile = () => {
           Manage your account settings and set e-mail preferences.
         </p>
       </div>
-      <div className="mx-auto max-w-screen-md px-4 pb-6 mt-6 ">
-        <div>
-          <h3 className="text-xl font-medium">Profile</h3>
-          <p className="text-sm text-muted-foreground mb-2">
-            This is how others will see you on the site.
-          </p>
-        </div>
-
+      <div className="mx-auto max-w-screen-xl px-4 pb-6 mt-6 ">
         <ProfileForm />
       </div>
     </div>
