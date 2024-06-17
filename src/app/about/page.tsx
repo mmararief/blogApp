@@ -15,7 +15,7 @@ const About = () => {
         Tentang Website Saints
       </h1>
 
-      <div className="grid gap-x-8 gap-y-4 grid-cols-3 mt-4 hover:gap-6">
+      <div className="grid gap-x-8 gap-y-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-4 hover:gap-6">
         <Card>
           <a href="https://nextjs.org/">
             <CardHeader>

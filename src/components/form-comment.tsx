@@ -4,17 +4,15 @@ import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 interface FormCommentProps {
   postId: string;
-  userId: string;
 }
 
-const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
+const FormComment: FC<FormCommentProps> = ({ postId }) => {
   const [comment, setComment] = useState<string>("");
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -47,7 +45,7 @@ const FormComment: FC<FormCommentProps> = ({ postId, userId }) => {
     <div>
       <div className="flex items-center border-b border-gray-300 p-2">
         <Avatar className="mr-2">
-          {userId && <AvatarImage src={userId} />}
+          {session?.user && <AvatarImage src={session.user.image || ""} />}
 
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>

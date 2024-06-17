@@ -8,7 +8,6 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 interface CommentsProps {
   postId: string;
-  userId: string;
 }
 const Comments: FC<CommentsProps> = async ({ postId }) => {
   const comments = await prisma.comment.findMany({
@@ -19,21 +18,24 @@ const Comments: FC<CommentsProps> = async ({ postId }) => {
       author: true,
     },
     orderBy: {
-      createdAt: "desc", // Assuming there's a createdAt field in your comment schema
+      createdAt: "desc",
     },
   });
   const user = await getCurrentUser();
 
   return (
     <div className="mt-8">
-      <h2 className="text-2xl font-bold pb-4">{comments.length} Comments </h2>
-      {user?.email ? (
-        <FormComment postId={postId} userId={user.image || ""} />
-      ) : (
-        <Link href="/api/auth/signin">
-          <Button>Login For Comment</Button>
-        </Link>
-      )}
+      <h2 className="text-2xl font-bold ">{comments.length} Comments </h2>
+      <div className="py-4">
+        {user?.email ? (
+          <FormComment postId={postId} />
+        ) : (
+          <Link href="/api/auth/signin">
+            <Button>Login For Comment</Button>
+          </Link>
+        )}
+      </div>
+
       <ul>
         {comments.map((comment) => (
           <li key={comment.id} className="mb-4 p-2">

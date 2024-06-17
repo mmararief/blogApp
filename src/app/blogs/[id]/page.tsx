@@ -66,7 +66,7 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
         {user?.email === post?.author?.email && (
           <ButtonDelete postId={params.id} />
         )}
-        <Comments postId={params.id} userId={""} />
+        <Comments postId={params.id} />
         <svg data-testid="DeleteIcon"></svg>
       </div>
     </div>
