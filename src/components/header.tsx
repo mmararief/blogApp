@@ -8,7 +8,7 @@ const Header = async () => {
   const user = await getCurrentUser();
   return (
     <header>
-      <nav className="relative px-16 py-4 flex justify-between items-center bg-white">
+      <nav className="relative px-6 py-4 flex justify-between items-center bg-white">
         <a
           className="text-3xl font-bold leading-none flex justify-between"
           href="/"
