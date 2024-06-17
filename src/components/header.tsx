@@ -1,7 +1,5 @@
 "use client"; // This must be at the very top of the file
 
-import { getCurrentUser } from "@/lib/session";
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import ButtonLogout from "./button-logout";
 import UserButton from "./user-button";
@@ -9,9 +7,8 @@ import { useSession } from "next-auth/react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
 
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
