@@ -75,6 +75,12 @@ const Blogs = () => {
             <Skeleton />
             <Skeleton />
             <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
+            <Skeleton />
           </>
         ) : (
           // Render posts if not loading
