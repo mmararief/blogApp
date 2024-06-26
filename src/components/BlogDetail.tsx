@@ -4,8 +4,6 @@ import Comments from "@/components/comments";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import React, { FC, useEffect, useState } from "react";
-import BackButton from "@/components/BackButton";
-import { useSession } from "next-auth/react";
 
 interface Author {
   id: string;

@@ -1,12 +1,18 @@
-"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
 
-interface Post {
+type Post = {
   id: string;
+  title: string;
+  content: string;
   imageUrl: string;
-}
+  author: {
+    name: string;
+    image: string;
+  };
+  createdAt: string;
+};
 
 interface BannerProps {
   posts: Post[];
@@ -60,14 +66,21 @@ const Banner: React.FC<BannerProps> = ({ posts }) => {
               index === currentSlide ? "block" : "hidden"
             }`}
           >
-            <Image
-              src={post.imageUrl}
-              className="block w-full max-h-[300px] object-cover"
-              alt={`Slide ${index + 1}`}
-              layout="responsive"
-              width={800}
-              height={600}
-            />
+            {/* Skeleton or Image Placeholder */}
+            <div
+              className={`bg-gray-200 ${
+                index !== currentSlide ? "animate-pulse" : ""
+              }`}
+            >
+              <Image
+                src={post.imageUrl}
+                className="block w-full max-h-[300px] object-cover"
+                alt={`Slide ${index + 1}`}
+                layout="responsive"
+                width={800}
+                height={600}
+              />
+            </div>
           </Link>
         ))}
       </div>

@@ -26,28 +26,16 @@ export async function POST(req: Request){
     }
 }
 
-// Action to delete
-export const DELETE = async (req: NextRequest) => {
-    const url = new URL(req.url).searchParams;
-    const id = String(url.get("id")) ;
-    console.log(id)
-  
-    const post = await prisma.post.delete({
-      where: {
-        id: id,
-      },
+export async function GET(req: Request) {
+
+    const post = await prisma.post.findMany({
+        include: { author: true },
     });
   
     if (!post) {
-      return NextResponse.json(
-        {
-          message: "Error",
-        },
-        {
-          status: 500,
-        }
-      );
+      return NextResponse.json({ error: 'Post not found' }, { status: 404 });
     }
   
-    return NextResponse.json({});
-  };
+    return NextResponse.json(post, { status: 200 });
+  }
+  

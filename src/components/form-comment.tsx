@@ -44,8 +44,13 @@ const FormComment: FC<FormCommentProps> = ({ postId }) => {
   return (
     <div>
       <div className="flex items-center border-b border-gray-300 p-2">
-        <Avatar className="mr-2">
-          {session?.user && <AvatarImage src={session.user.image || ""} />}
+        <Avatar className="mr-2 ">
+          {session?.user && (
+            <AvatarImage
+              className="object-cover"
+              src={session.user.image || ""}
+            />
+          )}
 
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>

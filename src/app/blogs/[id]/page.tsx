@@ -24,6 +24,10 @@ const BlogDetailPage: FC<BlogDetailProps> = async ({ params }) => {
     },
   });
 
+  if (!post) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="max-w-full md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto my-5 px-4 sm:px-6 lg:px-8">
       <div className="mb-4">
